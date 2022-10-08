@@ -14,6 +14,7 @@ export default function AppFunctional(props) {
   const [ coordinates, setCoordinates ] = useState([2,2])
   const [email, setEmail] = useState(initialEmail)
   const [currentSteps, setCurrentSteps] = useState(initialSteps)
+  const [ message, setMessage ] = useState(initialMessage)
   
 
  
@@ -49,16 +50,20 @@ const setCord = (index) => {
 
 }
 
+  console.log('currentPosition', currentPosition)
 
   function move(evt) {
     const direction = evt.target.id
+    if (currentPosition < 0 || currentPosition > 8) {
+      return
+    }
     if(direction === 'up' && currentPosition > 0) {
       setCurrentPosition(currentPosition - 3)
       setCord(currentPosition)
       setCurrentSteps(currentSteps + 1)
 
     }
-    if(direction === 'down' && currentPosition < 4) {
+    if(direction === 'down') {
       setCurrentPosition(currentPosition + 3)
       setCord(currentPosition)
       setCurrentSteps(currentSteps + 1)
@@ -88,11 +93,40 @@ const setCord = (index) => {
     
   }
 
-  async function onSubmit(evt) {
-    evt.preventDefault()
-    const res = await axios.post('http://localhost:9000/api/result', { x: coordinates[0], y: coordinates[1], steps: currentSteps  ,email: email })
-    return res
+  async function onSubmit(e) {
+    e.preventDefault()
+    if (email.length < 1) {
+      setMessage('Please enter an email')
+      return
+    } else {
+      const res = await axios.post('http://localhost:9000/api/result', { x: coordinates[0], y: coordinates[1], steps: currentSteps  ,email: email })
 
+      if(res.status === 200) {
+        console.log('Success: ', res.data)
+        setMessage(res.data.message)
+        setCurrentPosition(initialIndex)
+        setCord(initialIndex)
+        setCurrentSteps(initialSteps)
+        setEmail(initialEmail)
+        return
+      } else {
+        setMessage('Enter Valid Email')
+        return
+      }
+    
+      
+      
+      return res
+    }
+
+  
+
+  }
+
+  const reset = () => {
+    setCurrentPosition(initialIndex)
+    setCord(initialIndex)
+    setCurrentSteps(initialSteps)
   }
 
 
@@ -100,7 +134,7 @@ const setCord = (index) => {
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates { `(${coordinates[0], coordinates[1]})` }</h3>
+        <h3 id="coordinates">Coordinates { `(${coordinates})` }</h3>
         <h3 id="steps">You moved { currentSteps } times</h3>
       </div>
       <div id="grid">
@@ -113,16 +147,16 @@ const setCord = (index) => {
         }
       </div>
       <div className="info">
-        <h3 id="message"></h3>
+        <h3 id="message">{ message }</h3>
       </div>
       <div id="keypad">
         <button id="left" onClick = { move }>LEFT</button>
         <button id="up" onClick={ move }>UP</button>
         <button id="right" onClick = { move }>RIGHT</button>
         <button id="down" onClick = { move }>DOWN</button>
-        <button id="reset">reset</button>
+        <button id="reset" onClick = { reset }>reset</button>
       </div>
-      <form>
+      <form onSubmit = { onSubmit }>
         <input 
           id="email" 
           type="text"
@@ -132,7 +166,6 @@ const setCord = (index) => {
         <input 
           id="submit" 
           type="submit"
-          onSubmit={onSubmit}
           />
       </form>
     </div>

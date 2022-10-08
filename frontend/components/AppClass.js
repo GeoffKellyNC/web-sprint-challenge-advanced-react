@@ -18,7 +18,8 @@ export default class AppClass extends React.Component {
       currentPosition: initialIndex,
       coordinates: [2,2],
       email: initialEmail,
-      currentSteps: initialSteps
+      currentSteps: initialSteps,
+      message: initialMessage
     }
   }
 
@@ -115,13 +116,45 @@ export default class AppClass extends React.Component {
 
   onSubmit = async (evt) => {
     evt.preventDefault()
-    const res = await axios.post('http://localhost:9000/api/result', {
-      x: this.state.coordinates[0],
-      y: this.state.coordinates[1],
-      steps: this.state.currentSteps,
-      email: this.state.email
-    })
+
+    console.log('Submitting form')
+
+    const { email, currentSteps, coordinates } = this.state
+
+    if (email.length === 0) {
+      this.setState({
+        message: 'Please enter an email'
+      })
+      return
+    } else {
+      const res = await axios.post('http://localhost:9000/api/result', { x: coordinates[0], y: coordinates[1], steps: currentSteps, email })
+
+      if (res.status === 200){
+        this.setState({
+          message: res.data.message,
+          email: initialEmail,
+          currentSteps: initialSteps,
+          currentPosition: initialIndex
+        })
+        return
+      } else {
+        this.setState({
+          message: 'Enter a valid email'
+        })
+        return
+      }
+    }
+  }
     
+
+
+  reset = () => {
+    this.setState({
+      currentPosition: initialIndex,
+      coordinates: [2,2],
+      email: initialEmail,
+      currentSteps: initialSteps
+    })
   }
 
   render() {
@@ -129,7 +162,7 @@ export default class AppClass extends React.Component {
     return (
       <div id="wrapper" className={this.props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates { `(${this.state.coordinates[0], this.state.coordinates[1]})` }</h3>
+        <h3 id="coordinates">Coordinates { `(${this.state.coordinates})` }</h3>
         <h3 id="steps">You moved { this.state.currentSteps } times</h3>
       </div>
       <div id="grid">
@@ -142,16 +175,16 @@ export default class AppClass extends React.Component {
         }
       </div>
       <div className="info">
-        <h3 id="message"></h3>
+        <h3 id="message">{this.state.message}</h3>
       </div>
       <div id="keypad">
         <button id="left" onClick = { this.move }>LEFT</button>
         <button id="up" onClick={ this.move }>UP</button>
         <button id="right" onClick = { this.move }>RIGHT</button>
         <button id="down" onClick = { this.move }>DOWN</button>
-        <button id="reset">reset</button>
+        <button id="reset" onClick = { this.reset }>reset</button>
       </div>
-      <form>
+      <form onSubmit = { this.onSubmit }>
         <input 
           id="email" 
           type="text"
@@ -161,10 +194,10 @@ export default class AppClass extends React.Component {
         <input 
           id="submit" 
           type="submit"
-          onSubmit={ this.onSubmit }
           />
       </form>
     </div>
     )
   }
 }
+
