@@ -135,12 +135,13 @@ export default class AppClass extends React.Component {
 
     if (email.length < 1) {
       this.setState({
-        message: 'Please enter an email'
+        message: 'Ouch: email must be a valid email.'
       })
       return
 
     } else {
       const res = await axios.post('http://localhost:9000/api/result', { x: coordinates[0], y: coordinates[1], steps: currentSteps, email })
+
 
       if (res.status === 200){
         this.setState({

@@ -96,10 +96,13 @@ const setCord = (index) => {
   async function onSubmit(e) {
     e.preventDefault()
     if (email.length < 1) {
-      setMessage('Please enter an email')
+      setMessage('Ouch: email must be a valid email.')
       return
     } else {
       const res = await axios.post('http://localhost:9000/api/result', { x: coordinates[0], y: coordinates[1], steps: currentSteps  ,email: email })
+
+      console.log('RES DATA:',res.data) //! REMOVE THIS
+
 
       if(res.status === 200) {
         console.log('Success: ', res.data)
