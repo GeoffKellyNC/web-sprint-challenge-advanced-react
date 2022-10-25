@@ -76,35 +76,47 @@ export default class AppClass extends React.Component {
 
   move = (evt) => {
     const direction = evt.target.id
-    if(direction === 'up' && this.state.currentPosition > 0) {
-      this.setState({
-        currentPosition: this.state.currentPosition - 3,
-        currentSteps: this.state.currentSteps + 1
-      })
-      this.setCord(this.state.currentPosition)
-    }
-    if(direction === 'down' && this.state.currentPosition < 4) {
-      this.setState({
-        currentPosition: this.state.currentPosition + 3,
-        currentSteps: this.state.currentSteps + 1
-      })
-      this.setCord(this.state.currentPosition)
-    }
-    if(direction === 'left' && this.state.currentPosition % 3 !== 0) {
-      this.setState({
-        currentPosition: this.state.currentPosition - 1,
-        currentSteps: this.state.currentSteps + 1
-      })
-      this.setCord(this.state.currentPosition)
+
+    if (this.state.currentPosition < 0 || this.state.currentPosition > 8) {
+      return
     }
 
-    if(direction === 'right' && this.state.currentPosition % 3 !== 2) {
+    if(direction === 'up' && this.state.currentPosition > 1) {
+      this.setState({
+        currentPosition: this.state.currentPosition - 3,
+        coordinates: [this.state.coordinates[0] - 1, this.state.coordinates[1]],
+        currentSteps: this.state.currentSteps + 1,
+      })
+      
+    }
+
+    if(direction === 'down' && this.state.currentPosition < 7) {
+      this.setState({
+        currentPosition: this.state.currentPosition + 3,
+        coordinates: [this.state.coordinates[0] + 1, this.state.coordinates[1]],
+        currentSteps: this.state.currentSteps + 1,
+      })
+    }
+
+    if(direction === 'left' && this.state.currentPosition !== 0 && this.state.currentPosition !== 3 && this.state.currentPosition !== 6) {
+      this.setState({
+        currentPosition: this.state.currentPosition - 1,
+        coordinates: [this.state.coordinates[0], this.state.coordinates[1] - 1],
+        currentSteps: this.state.currentSteps + 1,
+      })
+    }
+
+    if(direction === 'right' && this.state.currentPosition !== 2 && this.state.currentPosition !== 5 && this.state.currentPosition !== 8) {
+
       this.setState({
         currentPosition: this.state.currentPosition + 1,
-        currentSteps: this.state.currentSteps + 1
+        coordinates: [this.state.coordinates[0], this.state.coordinates[1] + 1],
+        currentSteps: this.state.currentSteps + 1,
       })
-      this.setCord(this.state.currentPosition)
     }
+
+    this.setCord(this.state.currentPosition)
+
 
   }
 
@@ -121,11 +133,12 @@ export default class AppClass extends React.Component {
 
     const { email, currentSteps, coordinates } = this.state
 
-    if (email.length === 0) {
+    if (email.length < 1) {
       this.setState({
         message: 'Please enter an email'
       })
       return
+
     } else {
       const res = await axios.post('http://localhost:9000/api/result', { x: coordinates[0], y: coordinates[1], steps: currentSteps, email })
 
@@ -158,7 +171,6 @@ export default class AppClass extends React.Component {
   }
 
   render() {
-    const { className } = this.props
     return (
       <div id="wrapper" className={this.props.className}>
       <div className="info">

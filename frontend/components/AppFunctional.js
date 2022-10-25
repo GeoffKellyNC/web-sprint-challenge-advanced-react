@@ -57,13 +57,13 @@ const setCord = (index) => {
     if (currentPosition < 0 || currentPosition > 8) {
       return
     }
-    if(direction === 'up' && currentPosition > 0) {
+    if(direction === 'up' && currentPosition > 1) {
       setCurrentPosition(currentPosition - 3)
       setCord(currentPosition)
       setCurrentSteps(currentSteps + 1)
 
     }
-    if(direction === 'down') {
+    if(direction === 'down' && currentPosition < 7) {
       setCurrentPosition(currentPosition + 3)
       setCord(currentPosition)
       setCurrentSteps(currentSteps + 1)
@@ -113,11 +113,7 @@ const setCord = (index) => {
         setMessage('Enter Valid Email')
         return
       }
-    
-      
-      
-      return res
-    }
+  }
 
   
 
