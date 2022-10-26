@@ -73,6 +73,7 @@ export default function AppFunctional(props) {
 
   async function onSubmit(e) {
     e.preventDefault()
+    console.log( 'X', coordinates[0], 'Y', coordinates[1], 'Steps', currentSteps, 'Email', email)
       try {
         const res = await axios.post('http://localhost:9000/api/result', { x: coordinates[0], y: coordinates[1], steps: currentSteps  ,email: email })
         setMessage(res.data.message)
