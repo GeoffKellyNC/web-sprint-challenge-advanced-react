@@ -61,7 +61,7 @@ const setCord = (index) => {
       if (currentPosition > 2){
         setCurrentPosition(currentPosition - 3)
         setCurrentSteps(currentSteps + 1)
-        setCoordinates([coordinates[0] - 1, coordinates[1]])
+        setCoordinates([coordinates[0], coordinates[1] - 1])
       }
    }
 
@@ -69,7 +69,7 @@ const setCord = (index) => {
       if (currentPosition < 6){
         setCurrentPosition(currentPosition + 3)
         setCurrentSteps(currentSteps + 1)
-        setCoordinates([coordinates[0] + 1, coordinates[1]])
+        setCoordinates([coordinates[0], coordinates[1] + 1])
       }
     }
 
@@ -77,7 +77,7 @@ const setCord = (index) => {
       if (currentPosition % 3 !== 0){
         setCurrentPosition(currentPosition - 1)
         setCurrentSteps(currentSteps + 1)
-        setCoordinates([coordinates[0], coordinates[1] - 1])
+        setCoordinates([coordinates[0] - 1, coordinates[1]])
       }
     }
 
@@ -85,7 +85,7 @@ const setCord = (index) => {
       if (currentPosition % 3 !== 2){
         setCurrentPosition(currentPosition + 1)
         setCurrentSteps(currentSteps + 1)
-        setCoordinates([coordinates[0], coordinates[1] + 1])
+        setCoordinates([coordinates[0] + 1, coordinates[1]])
       }
     }
     

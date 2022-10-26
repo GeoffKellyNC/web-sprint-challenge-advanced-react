@@ -82,7 +82,7 @@ export default class AppClass extends React.Component {
         this.setState({
           currentPosition: this.state.currentPosition - 3,
           currentSteps: this.state.currentSteps + 1,
-          coordinates: [this.state.coordinates[0] - 1, this.state.coordinates[1]]
+          coordinates: [this.state.coordinates[0], this.state.coordinates[1] - 1]
         })
       }
     }
@@ -92,7 +92,7 @@ export default class AppClass extends React.Component {
         this.setState({
           currentPosition: this.state.currentPosition + 3,
           currentSteps: this.state.currentSteps + 1,
-          coordinates: [this.state.coordinates[0] + 1, this.state.coordinates[1]]
+          coordinates: [this.state.coordinates[0], this.state.coordinates[1] + 1]
         })
       }
     }
@@ -102,7 +102,7 @@ export default class AppClass extends React.Component {
         this.setState({
           currentPosition: this.state.currentPosition - 1,
           currentSteps: this.state.currentSteps + 1,
-          coordinates: [this.state.coordinates[0], this.state.coordinates[1] - 1]
+          coordinates: [this.state.coordinates[0] - 1, this.state.coordinates[1]]
         })
       }
     }
@@ -112,7 +112,7 @@ export default class AppClass extends React.Component {
         this.setState({
           currentPosition: this.state.currentPosition + 1,
           currentSteps: this.state.currentSteps + 1,
-          coordinates: [this.state.coordinates[0], this.state.coordinates[1] + 1]
+          coordinates: [this.state.coordinates[0] + 1, this.state.coordinates[1]]
         })
       }
     }
