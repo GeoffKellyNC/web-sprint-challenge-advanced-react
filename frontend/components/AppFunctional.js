@@ -51,7 +51,7 @@ export default function AppFunctional(props) {
         setCoordinates([coordinates[0] - 1, coordinates[1]])
         return
       }
-      setMessage(" You can't go left")
+      setMessage("You can't go left")
     }
 
     if (direction === 'right'){
@@ -61,12 +61,9 @@ export default function AppFunctional(props) {
         setCoordinates([coordinates[0] + 1, coordinates[1]])
         return
       }
-      setMessage(" You can't go right")
+      setMessage("You can't go right")
     }
-    
-
-
-    
+  
   }
 
   function onChange(evt) {
@@ -110,7 +107,7 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">Coordinates { `(${coordinates})` }</h3>
-        <h3 id="steps">You moved { currentSteps } times</h3>
+        <h3 id="steps">{`You moved ${currentSteps} ${ currentSteps === 1 ? 'time' : 'times'}`}</h3>
       </div>
       <div id="grid">
         {

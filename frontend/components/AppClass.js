@@ -41,7 +41,7 @@ export default class AppClass extends React.Component {
         return
       }
       this.setState({
-        message: " You can't go up"
+        message: "You can't go up"
       })
     }
 
@@ -55,7 +55,7 @@ export default class AppClass extends React.Component {
         return
       }
       this.setState({
-        message: " You can't go down"
+        message: "You can't go down"
       })
     }
 
@@ -69,7 +69,7 @@ export default class AppClass extends React.Component {
         return
       }
       this.setState({
-        message: " You can't go left"
+        message: "You can't go left"
       })
     }
 
@@ -83,7 +83,7 @@ export default class AppClass extends React.Component {
         return
       }
       this.setState({
-        message: " You can't go right"
+        message: "You can't go right"
       })
     }
 
@@ -139,7 +139,7 @@ export default class AppClass extends React.Component {
       <div id="wrapper" className={this.props.className}>
       <div className="info">
         <h3 id="coordinates">Coordinates { `(${this.state.coordinates})` }</h3>
-        <h3 id="steps">You moved { this.state.currentSteps } times</h3>
+        <h3 id="steps">{`You moved ${this.state.currentSteps} ${ this.state.currentSteps === 1 ? 'time' : 'times'}`}</h3>
       </div>
       <div id="grid">
         {
