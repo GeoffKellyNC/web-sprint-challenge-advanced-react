@@ -159,7 +159,8 @@ export default class AppClass extends React.Component {
       currentPosition: initialIndex,
       coordinates: [2,2],
       email: initialEmail,
-      currentSteps: initialSteps
+      currentSteps: initialSteps,
+      message: initialMessage
     })
   }
 

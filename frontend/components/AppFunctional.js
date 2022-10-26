@@ -121,31 +121,13 @@ const setCord = (index) => {
 
   }
 
-        
-
       
-
-
-  //     if(res.status === 200) {
-  //       console.log('Success: ', res.data)
-  //       setMessage(res.data.message)
-  //       setCurrentPosition(initialIndex)
-  //       setCord(initialIndex)
-  //       setCurrentSteps(initialSteps)
-  //       setEmail(initialEmail)
-  //       return
-  //     } else {
-  //       setMessage('Enter Valid Email')
-  //       return
-  //     }
-  // }
-
-  
-
   const reset = () => {
     setCurrentPosition(initialIndex)
-    setCord(initialIndex)
+    setCord([2,2])
     setCurrentSteps(initialSteps)
+    setEmail(initialEmail)
+    setMessage(initialMessage)
   }
 
 
