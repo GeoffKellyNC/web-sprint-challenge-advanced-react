@@ -23,56 +23,6 @@ export default class AppClass extends React.Component {
     }
   }
 
-  setCord = (index) => {
-    if (index === 0) {
-      this.setState({
-        coordinates: [0,0]
-      })
-    }
-    if (index === 1) {
-      this.setState({
-        coordinates: [0,1]
-      })
-    }
-    if (index === 2) {
-      this.setState({
-        coordinates: [0,2]
-      })
-    }
-    if (index === 3) {
-      this.setState({
-        coordinates: [1,0]
-      })
-    }
-    if (index === 4) {
-      this.setState({
-        coordinates: [1,1]
-      })
-    }
-    if (index === 5) {
-      this.setState({
-        coordinates: [1,2]
-      })
-    }
-    if (index === 6) {
-      this.setState({
-        coordinates: [2,0]
-      })
-    }
-    if (index === 7) {
-      this.setState({
-        coordinates: [2,1]
-      })
-    }
-    if (index === 8) {
-      this.setState({
-        coordinates: [2,2]
-      })
-    }
-  }
-
-
-
 
   move = (evt) => {
     const direction = evt.target.id

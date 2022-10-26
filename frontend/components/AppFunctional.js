@@ -20,39 +20,6 @@ export default function AppFunctional(props) {
 
  
 
-const setCord = (index) => {
-  if (index === 0) {
-    setCoordinates([0,0])
-  }
-  if (index === 1) {
-    setCoordinates([0,1])
-  }
-  if (index === 2) {
-    setCoordinates([0,2])
-  }
-  if (index === 3) {
-    setCoordinates([1,0])
-  }
-  if (index === 4) {
-    setCoordinates([1,1])
-  }
-  if (index === 5) {
-    setCoordinates([1,2])
-  }
-  if (index === 6) {
-    setCoordinates([2,0])
-  }
-  if (index === 7) {
-    setCoordinates([2,1])
-  }
-  if (index === 8) {
-    setCoordinates([2,2])
-  }
-
-}
-
-  console.log('currentPosition', currentPosition)
-
   function move(evt) {
     setMessage(initialMessage)
    const direction = evt.target.id
@@ -116,7 +83,6 @@ const setCord = (index) => {
         setCoordinates([2,2])
         setCurrentSteps(initialSteps)
         setCurrentPosition(initialIndex)
-
       } catch (error) {
         console.log(error)
         setMessage(error.response.data.message)
