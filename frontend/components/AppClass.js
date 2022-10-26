@@ -162,7 +162,7 @@ export default class AppClass extends React.Component {
           type="text"
           value={ this.state.email }
           onChange={ this.onChange }
-          placeholder="Type Email"
+          placeholder="type email"
           />
         <input 
           id="submit" 

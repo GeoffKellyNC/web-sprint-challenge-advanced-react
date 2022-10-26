@@ -130,6 +130,7 @@ export default function AppFunctional(props) {
           type="text"
           value={ email }
           onChange={onChange}
+          placeholder="type email"
           />
         <input 
           id="submit" 
