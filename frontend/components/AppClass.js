@@ -16,7 +16,7 @@ export default class AppClass extends React.Component {
     super(props)
     this.state = {
       currentPosition: initialIndex,
-      coordinates: [2,2],
+      coordinates: [2, 2],
       email: initialEmail,
       currentSteps: initialSteps,
       message: initialMessage
@@ -134,7 +134,7 @@ export default class AppClass extends React.Component {
     return (
       <div id="wrapper" className={this.props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates { `(${this.state.coordinates})` }</h3>
+        <h3 id="coordinates">Coordinates {`(${this.state.coordinates[0]}, ${this.state.coordinates[1]})`}</h3>
         <h3 id="steps">{`You moved ${this.state.currentSteps} ${ this.state.currentSteps === 1 ? 'time' : 'times'}`}</h3>
       </div>
       <div id="grid">
@@ -162,6 +162,7 @@ export default class AppClass extends React.Component {
           type="text"
           value={ this.state.email }
           onChange={ this.onChange }
+          placeholder="Type Email"
           />
         <input 
           id="submit" 
