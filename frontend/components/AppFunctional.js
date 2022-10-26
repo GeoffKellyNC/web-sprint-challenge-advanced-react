@@ -122,7 +122,7 @@ const setCord = (index) => {
         setMessage(error.response.data.message)
         setEmail(initialEmail)
         setCurrentPosition(initialIndex)
-        setCord(initialIndex)
+        setCoordinates([2,2])
         setCurrentSteps(initialSteps)
       }
 
@@ -132,7 +132,7 @@ const setCord = (index) => {
       
   const reset = () => {
     setCurrentPosition(initialIndex)
-    setCord([2,2])
+    setCoordinates([2,2])
     setCurrentSteps(initialSteps)
     setEmail(initialEmail)
     setMessage(initialMessage)
