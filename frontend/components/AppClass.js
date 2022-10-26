@@ -107,17 +107,13 @@ export default class AppClass extends React.Component {
       this.setState({
         message: res.data.message,
         email: '',
-        currentSteps: 0,
-        currentPosition: initialIndex,
-        coordinates: [2,2]
+
       })
     } catch (err) {
       this.setState({
         message: err.response.data.message,
         email: '',
-        currentSteps: 0,
-        currentPosition: initialIndex,
-        coordinates: [2,2]
+
       })
     }
   }

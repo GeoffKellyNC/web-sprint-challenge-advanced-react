@@ -78,16 +78,11 @@ export default function AppFunctional(props) {
         const res = await axios.post('http://localhost:9000/api/result', { x: coordinates[0], y: coordinates[1], steps: currentSteps  ,email: email })
         setMessage(res.data.message)
         setEmail(initialEmail)
-        setCoordinates([2,2])
-        setCurrentSteps(initialSteps)
-        setCurrentPosition(initialIndex)
       } catch (error) {
         console.log(error)
         setMessage(error.response.data.message)
         setEmail(initialEmail)
-        setCurrentPosition(initialIndex)
-        setCoordinates([2,2])
-        setCurrentSteps(initialSteps)
+
       }
 
 
