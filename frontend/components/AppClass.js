@@ -77,46 +77,45 @@ export default class AppClass extends React.Component {
   move = (evt) => {
     const direction = evt.target.id
 
-    if (this.state.currentPosition < 0 || this.state.currentPosition > 8) {
-      return
+    if (direction === 'up'){
+      if (this.state.currentPosition > 2){
+        this.setState({
+          currentPosition: this.state.currentPosition - 3,
+          currentSteps: this.state.currentSteps + 1,
+          coordinates: [this.state.coordinates[0] - 1, this.state.coordinates[1]]
+        })
+      }
     }
 
-    if(direction === 'up' && this.state.currentPosition > 1) {
-      this.setState({
-        currentPosition: this.state.currentPosition - 3,
-        coordinates: [this.state.coordinates[0] - 1, this.state.coordinates[1]],
-        currentSteps: this.state.currentSteps + 1,
-      })
-      
+    if (direction === 'down'){
+      if (this.state.currentPosition < 6){
+        this.setState({
+          currentPosition: this.state.currentPosition + 3,
+          currentSteps: this.state.currentSteps + 1,
+          coordinates: [this.state.coordinates[0] + 1, this.state.coordinates[1]]
+        })
+      }
     }
 
-    if(direction === 'down' && this.state.currentPosition < 7) {
-      this.setState({
-        currentPosition: this.state.currentPosition + 3,
-        coordinates: [this.state.coordinates[0] + 1, this.state.coordinates[1]],
-        currentSteps: this.state.currentSteps + 1,
-      })
+    if (direction === 'left'){
+      if (this.state.currentPosition % 3 !== 0){
+        this.setState({
+          currentPosition: this.state.currentPosition - 1,
+          currentSteps: this.state.currentSteps + 1,
+          coordinates: [this.state.coordinates[0], this.state.coordinates[1] - 1]
+        })
+      }
     }
 
-    if(direction === 'left' && this.state.currentPosition !== 0 && this.state.currentPosition !== 3 && this.state.currentPosition !== 6) {
-      this.setState({
-        currentPosition: this.state.currentPosition - 1,
-        coordinates: [this.state.coordinates[0], this.state.coordinates[1] - 1],
-        currentSteps: this.state.currentSteps + 1,
-      })
+    if (direction === 'right'){
+      if (this.state.currentPosition % 3 !== 2){
+        this.setState({
+          currentPosition: this.state.currentPosition + 1,
+          currentSteps: this.state.currentSteps + 1,
+          coordinates: [this.state.coordinates[0], this.state.coordinates[1] + 1]
+        })
+      }
     }
-
-    if(direction === 'right' && this.state.currentPosition !== 2 && this.state.currentPosition !== 5 && this.state.currentPosition !== 8) {
-
-      this.setState({
-        currentPosition: this.state.currentPosition + 1,
-        coordinates: [this.state.coordinates[0], this.state.coordinates[1] + 1],
-        currentSteps: this.state.currentSteps + 1,
-      })
-    }
-
-    this.setCord(this.state.currentPosition)
-
 
   }
 
@@ -128,35 +127,28 @@ export default class AppClass extends React.Component {
 
   onSubmit = async (evt) => {
     evt.preventDefault()
-
-    console.log('Submitting form')
-
-    const { email, currentSteps, coordinates } = this.state
-
-    if (email.length < 1) {
-      this.setState({
-        message: 'Ouch: email must be a valid email.'
+    try {
+      const res = await axios.post('http://localhost:9000/api/result', {
+        x: this.state.coordinates[0],
+        y: this.state.coordinates[1],
+        steps: this.state.currentSteps,
+        email: this.state.email
       })
-      return
-
-    } else {
-      const res = await axios.post('http://localhost:9000/api/result', { x: coordinates[0], y: coordinates[1], steps: currentSteps, email })
-
-
-      if (res.status === 200){
-        this.setState({
-          message: res.data.message,
-          email: initialEmail,
-          currentSteps: initialSteps,
-          currentPosition: initialIndex
-        })
-        return
-      } else {
-        this.setState({
-          message: 'Enter a valid email'
-        })
-        return
-      }
+      this.setState({
+        message: res.data.message,
+        email: '',
+        currentSteps: 0,
+        currentPosition: initialIndex,
+        coordinates: [2,2]
+      })
+    } catch (err) {
+      this.setState({
+        message: err.response.data.message,
+        email: '',
+        currentSteps: 0,
+        currentPosition: initialIndex,
+        coordinates: [2,2]
+      })
     }
   }
     

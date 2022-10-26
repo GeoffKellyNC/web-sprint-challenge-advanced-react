@@ -54,38 +54,43 @@ const setCord = (index) => {
   console.log('currentPosition', currentPosition)
 
   function move(evt) {
-    const direction = evt.target.id
-    if (currentPosition < 0 || currentPosition > 8) {
-      return
-    }
-    if(direction === 'up' && currentPosition > 1) {
-      setCurrentPosition(currentPosition - 3)
-      setCord(currentPosition)
-      setCurrentSteps(currentSteps + 1)
+    console.log('evt', evt)
+   const direction = evt.target.id
 
+   if (direction === 'up'){
+      if (currentPosition > 2){
+        setCurrentPosition(currentPosition - 3)
+        setCurrentSteps(currentSteps + 1)
+        setCoordinates([coordinates[0] - 1, coordinates[1]])
+      }
+   }
+
+    if (direction === 'down'){
+      if (currentPosition < 6){
+        setCurrentPosition(currentPosition + 3)
+        setCurrentSteps(currentSteps + 1)
+        setCoordinates([coordinates[0] + 1, coordinates[1]])
+      }
     }
-    if(direction === 'down' && currentPosition < 7) {
-      setCurrentPosition(currentPosition + 3)
-      setCord(currentPosition)
-      setCurrentSteps(currentSteps + 1)
+
+    if (direction === 'left'){
+      if (currentPosition % 3 !== 0){
+        setCurrentPosition(currentPosition - 1)
+        setCurrentSteps(currentSteps + 1)
+        setCoordinates([coordinates[0], coordinates[1] - 1])
+      }
     }
-    if(direction === 'left' && currentPosition > 0) {
-      console.log('left')
-      setCurrentPosition(currentPosition - 1)
-      setCord(currentPosition)
-      setCurrentSteps(currentSteps + 1)
+
+    if (direction === 'right'){
+      if (currentPosition % 3 !== 2){
+        setCurrentPosition(currentPosition + 1)
+        setCurrentSteps(currentSteps + 1)
+        setCoordinates([coordinates[0], coordinates[1] + 1])
+      }
     }
-    if(direction === 'right' && currentPosition < 8) {
-      console.log('right')
-      setCurrentPosition(currentPosition + 1)
-      setCord(currentPosition)
-      setCurrentSteps(currentSteps + 1)
-    }
-    if (direction === 'reset'){
-      setCurrentPosition(initialIndex)
-      setCord(initialIndex)
-      setCurrentSteps(initialSteps)
-    }
+    
+
+
     
   }
 
@@ -96,34 +101,46 @@ const setCord = (index) => {
 
   async function onSubmit(e) {
     e.preventDefault()
-    if (email.length < 1) {
-      setMessage('Ouch: email must be a valid email.')
-      return
-    } else {
-      const res = await axios.post('http://localhost:9000/api/result', { x: coordinates[0], y: coordinates[1], steps: currentSteps  ,email: email })
-
-      console.log('X:', coordinates[0], 'Y:', coordinates[1], 'Steps:', currentSteps, 'Email:', email) //! REMOVE THIS
-
-      console.log('RES DATA:',res.data) //! REMOVE THIS
-
-
-      if(res.status === 200) {
-        console.log('Success: ', res.data)
+      try {
+        const res = await axios.post('http://localhost:9000/api/result', { x: coordinates[0], y: coordinates[1], steps: currentSteps  ,email: email })
         setMessage(res.data.message)
+        setEmail(initialEmail)
+        setCoordinates([2,2])
+        setCurrentSteps(initialSteps)
+        setCurrentPosition(initialIndex)
+
+      } catch (error) {
+        console.log(error)
+        setMessage(error.response.data.message)
+        setEmail(initialEmail)
         setCurrentPosition(initialIndex)
         setCord(initialIndex)
         setCurrentSteps(initialSteps)
-        setEmail(initialEmail)
-        return
-      } else {
-        setMessage('Enter Valid Email')
-        return
       }
+
+
   }
+
+        
+
+      
+
+
+  //     if(res.status === 200) {
+  //       console.log('Success: ', res.data)
+  //       setMessage(res.data.message)
+  //       setCurrentPosition(initialIndex)
+  //       setCord(initialIndex)
+  //       setCurrentSteps(initialSteps)
+  //       setEmail(initialEmail)
+  //       return
+  //     } else {
+  //       setMessage('Enter Valid Email')
+  //       return
+  //     }
+  // }
 
   
-
-  }
 
   const reset = () => {
     setCurrentPosition(initialIndex)
