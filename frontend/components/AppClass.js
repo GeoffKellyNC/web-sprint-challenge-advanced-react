@@ -78,13 +78,21 @@ export default class AppClass extends React.Component {
     const direction = evt.target.id
 
     if (direction === 'up'){
+      this.setState({
+        message: initialMessage
+      })
+
       if (this.state.currentPosition > 2){
         this.setState({
           currentPosition: this.state.currentPosition - 3,
           currentSteps: this.state.currentSteps + 1,
           coordinates: [this.state.coordinates[0], this.state.coordinates[1] - 1]
         })
+        return
       }
+      this.setState({
+        message: " You can't go up"
+      })
     }
 
     if (direction === 'down'){
@@ -94,7 +102,11 @@ export default class AppClass extends React.Component {
           currentSteps: this.state.currentSteps + 1,
           coordinates: [this.state.coordinates[0], this.state.coordinates[1] + 1]
         })
+        return
       }
+      this.setState({
+        message: " You can't go down"
+      })
     }
 
     if (direction === 'left'){
@@ -104,7 +116,11 @@ export default class AppClass extends React.Component {
           currentSteps: this.state.currentSteps + 1,
           coordinates: [this.state.coordinates[0] - 1, this.state.coordinates[1]]
         })
+        return
       }
+      this.setState({
+        message: " You can't go left"
+      })
     }
 
     if (direction === 'right'){
@@ -114,7 +130,11 @@ export default class AppClass extends React.Component {
           currentSteps: this.state.currentSteps + 1,
           coordinates: [this.state.coordinates[0] + 1, this.state.coordinates[1]]
         })
+        return
       }
+      this.setState({
+        message: " You can't go right"
+      })
     }
 
   }

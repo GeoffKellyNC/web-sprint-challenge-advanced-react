@@ -54,7 +54,7 @@ const setCord = (index) => {
   console.log('currentPosition', currentPosition)
 
   function move(evt) {
-    console.log('evt', evt)
+    setMessage(initialMessage)
    const direction = evt.target.id
 
    if (direction === 'up'){
@@ -62,7 +62,9 @@ const setCord = (index) => {
         setCurrentPosition(currentPosition - 3)
         setCurrentSteps(currentSteps + 1)
         setCoordinates([coordinates[0], coordinates[1] - 1])
+        return
       }
+      setMessage("You can't go up")
    }
 
     if (direction === 'down'){
@@ -70,7 +72,9 @@ const setCord = (index) => {
         setCurrentPosition(currentPosition + 3)
         setCurrentSteps(currentSteps + 1)
         setCoordinates([coordinates[0], coordinates[1] + 1])
+        return
       }
+      setMessage("You can't go down")
     }
 
     if (direction === 'left'){
@@ -78,7 +82,9 @@ const setCord = (index) => {
         setCurrentPosition(currentPosition - 1)
         setCurrentSteps(currentSteps + 1)
         setCoordinates([coordinates[0] - 1, coordinates[1]])
+        return
       }
+      setMessage(" You can't go left")
     }
 
     if (direction === 'right'){
@@ -86,7 +92,9 @@ const setCord = (index) => {
         setCurrentPosition(currentPosition + 1)
         setCurrentSteps(currentSteps + 1)
         setCoordinates([coordinates[0] + 1, coordinates[1]])
+        return
       }
+      setMessage(" You can't go right")
     }
     
 
