@@ -7,6 +7,7 @@ const initialEmail = ''
 const initialSteps = 0
 let initialIndex = 4 // the index the "B" is at
 
+
 export default function AppFunctional(props) {
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
@@ -100,6 +101,8 @@ const setCord = (index) => {
       return
     } else {
       const res = await axios.post('http://localhost:9000/api/result', { x: coordinates[0], y: coordinates[1], steps: currentSteps  ,email: email })
+
+      console.log('X:', coordinates[0], 'Y:', coordinates[1], 'Steps:', currentSteps, 'Email:', email) //! REMOVE THIS
 
       console.log('RES DATA:',res.data) //! REMOVE THIS
 
